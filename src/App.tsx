@@ -19,46 +19,9 @@ const App: FunctionComponent = ({}) => {
   const [accountsData, setAccountsData] = useState<any[]>([]);
   const [accountsTypeData, setAccountsTypeData] = useState<any[]>([]);
 
-  const fetchData = () => {
-    // fetch(accountApi, {
-    //   headers: header,
-    // })
-    //   .then(function (response) {
-    //     if (response.ok) {
-    //       console.log(response);
-    //       return response.json();
-    //     }
-    //     throw response;
-    //   })
-    //   .then(function (data) {
-    //     setAccountsData(data);
-    //     console.log(data);
-    //   })
-    //   .catch(function (error) {
-    //     console.warn(error);
-    //   });
-    // fetch(accountApiType, {
-    //   headers: header,
-    // })
-    //   .then(function (response) {
-    //     if (response.ok) {
-    //       console.log(response);
-    //       return response.json();
-    //     }
-    //     throw response;
-    //   })
-    //   .then(function (data) {
-    //     setAccountsTypeData(data);
-    //     console.log(data);
-    //   })
-    //   .catch(function (error) {
-    //     console.warn(error);
-    //   });
-  };
-
   const urls = [accountApi, accountApiType];
 
-  const getData = async () => {
+  const fetchData = async () => {
     setLoading(true);
     const [acc, accType] = await Promise.all(
       urls.map((url) =>
@@ -71,10 +34,21 @@ const App: FunctionComponent = ({}) => {
     console.log(acc, accType);
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  const addToObject = () => {
+    accountsData.filter(function (obj) {
+      return accountsTypeData.some(function (obj2) {
+        if (obj.accountType === obj2.id) {
+          Object.assign(obj, { accountTypeTitle: obj2.title });
+          console.log(obj);
+        }
+      });
+    });
+  };
 
+  addToObject();
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <TitleComponent />
@@ -88,6 +62,7 @@ const App: FunctionComponent = ({}) => {
                 name={data.name}
                 currency={data.currency}
                 prof={data.profitLoss}
+                accountType={data.accountTypeTitle}
               />
             </>
           );

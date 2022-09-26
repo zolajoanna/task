@@ -5,6 +5,7 @@ const DataTable: FunctionComponent<IDataTable> = ({
   name,
   currency,
   prof,
+  accountType,
   id,
 }) => {
   return (
@@ -13,7 +14,7 @@ const DataTable: FunctionComponent<IDataTable> = ({
       <div className="data__profit">
         {currency} {prof}
       </div>
-      <div className="data__account">{name}</div>
+      <div className="data__account">{accountType}</div>
     </div>
   );
 };
