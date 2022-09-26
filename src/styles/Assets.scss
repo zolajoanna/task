@@ -1,0 +1,10 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  transform: translateY(50%);
+
+  &__gif {
+    width: 96px;
+    height: 96px;
+  }
+}

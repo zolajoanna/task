@@ -1,0 +1,13 @@
+.title {
+  display: flex;
+  justify-content: end;
+  border-bottom: #0f3057 solid 1px;
+  margin-bottom: 24px;
+
+  &__test-name {
+    display: inline-block;
+    align-self: flex-end;
+    font-size: 16px;
+    color: #00587a;
+  }
+}

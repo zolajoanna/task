@@ -1,26 +1,75 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FunctionComponent, useState } from "react";
+import TitleComponent from "./components/TitleComponent";
+import SpinnerComponent from "./components/SpinnerComponent";
+import ColumnNames from "./components/ColumnNames";
+import DataTable from "./components/DataTable";
+import "./App.scss";
 
-function App() {
+const App: FunctionComponent = ({}) => {
+  const [accountsData, setAccountsData] = useState<any[]>([]);
+  const [accountsTypeData, setAccountsTypeData] = useState<any[]>([]);
+
+  fetch("https://recruitmentdb-508d.restdb.io/rest/accounts", {
+    headers: {
+      "x-apikey": "5d9f48133cbe87164d4bb12c",
+    },
+  })
+    .then(function (response) {
+      if (response.ok) {
+        console.log(response);
+        return response.json();
+      }
+      throw response;
+    })
+    .then(function (data) {
+      setAccountsData(data);
+      console.log(data);
+    })
+    .catch(function (error) {
+      console.warn(error);
+    });
+
+  fetch("https://recruitmentdb-508d.restdb.io/rest/accounttypes", {
+    headers: {
+      "x-apikey": "5d9f48133cbe87164d4bb12c",
+    },
+  })
+    .then(function (response) {
+      if (response.ok) {
+        console.log(response);
+        return response.json();
+      }
+      throw response;
+    })
+    .then(function (data) {
+      setAccountsTypeData(data);
+      console.log(data);
+    })
+    .catch(function (error) {
+      console.warn(error);
+    });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TitleComponent />
+      {accountsData.length > 0 ? <ColumnNames /> : <></>}
+      {accountsData.length > 0 ? (
+        accountsData.map((data) => {
+          return (
+            <>
+              <DataTable
+                name={data.name}
+                currency={data.currency}
+                prof={data.profitLoss}
+              />
+            </>
+          );
+        })
+      ) : (
+        <SpinnerComponent />
+      )}
+    </>
   );
-}
+};
 
 export default App;

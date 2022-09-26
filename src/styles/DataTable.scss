@@ -1,0 +1,29 @@
+.data {
+  display: flex;
+  gap: 256px;
+  justify-content: space-around;
+  align-items: flex-start;
+  border-bottom: #0f3057 solid 1px;
+  padding: 8px 0;
+  margin: 0 48px;
+  font-size: 12px;
+
+  &__name {
+    width: 150px;
+    text-align: left;
+  }
+
+  &__profit {
+    width: 150px;
+  }
+
+  &__account {
+    width: 150px;
+  }
+
+  &__title {
+    border-bottom: #00587a solid 2px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
