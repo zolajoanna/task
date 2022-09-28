@@ -8,4 +8,10 @@ describe("App component tests", () => {
     const titleBar = screen.getByText("FRONTEND COMPETENCY TEST");
     expect(titleBar).toBeInTheDocument();
   });
+
+  it("should render a spinner", () => {
+    render(<App />);
+    const spinner = screen.getByTestId("spinner");
+    expect(spinner).toBeInTheDocument();
+  });
 });

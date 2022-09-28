@@ -8,31 +8,17 @@ import { addToObject } from "./apiFunctions/addToObject";
 import "./App.scss";
 
 const App: FunctionComponent = ({}) => {
-  const accountApi: string =
-    "https://recruitmentdb-508d.restdb.io/rest/accounts";
-  const accountApiType: string =
-    "https://recruitmentdb-508d.restdb.io/rest/accounttypes";
-
-  const header: HeadersInit = {
-    "x-apikey": "5d9f48133cbe87164d4bb12c",
-  };
-  const urls = [accountApi, accountApiType];
-
   const [loading, setLoading] = useState<boolean>(false);
   const [accountsData, setAccountsData] = useState<any[]>([]);
   const [accountsTypeData, setAccountsTypeData] = useState<any[]>([]);
 
   const showData = async () => {
     setLoading(true);
-
-    const [acc, accType] = await Promise.all(
-      urls.map((url) =>
-        apiData.getData(url, header).catch((e) => console.log(e))
-      )
-    );
+    const acc = await apiData.getDataAccount();
+    const accType = await apiData.getDataAccountType();
+    setLoading(false);
     setAccountsData(acc);
     setAccountsTypeData(accType);
-    setLoading(false);
   };
 
   addToObject(accountsData, accountsTypeData);

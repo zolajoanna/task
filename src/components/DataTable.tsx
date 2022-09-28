@@ -10,7 +10,9 @@ const DataTable: FunctionComponent<IDataTable> = ({
 }) => {
   return (
     <div className="data" key={id}>
-      <div className="data__name">{name}</div>
+      <div className="data__name" data-testid="accountName">
+        {name}
+      </div>
       <div className="data__profit">
         {currency} {prof}
       </div>
